@@ -1,0 +1,25 @@
+-------- xmr-stak install method---------------
+sudo yum -y install epel-release
+
+sudo yum -y install centos-release-scl cmake3 hwloc-devel libmicrohttpd-devel openssl-devel git screen nano make htop
+sudo yum -y install devtoolset-4-gcc*
+ 
+sudo scl enable devtoolset-4 bash
+
+sudo git clone https://github.com/fireice-uk/xmr-stak.git
+cd xmr-stak/
+# 修改开发抽水
+#Git修改文件后在执行编译
+
+sudo vi xmrstak/donate-level.hpp
+#修改最下方抽水比例为0.0
+constexpr double fDevDonationLevel = 0.0 / 100.0;
+#保存修改后的文件
+#:wq
+
+sudo cmake3 . -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF
+
+sudo make install
+cd bin/
+./xmr-stak
+-------------------------------------------------------
